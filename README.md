@@ -1,30 +1,31 @@
-# Proyek Analisis Data E-Commerce (Olist Brazilian E-Commerce Dataset)
+# 📊 Brazilian E-Commerce Public Analysis Dashboard
 
-## Informasi Peserta
-- **Nama:** Noval Berauh
-- **Email:** mikelizer123@gmail.com
-- **ID Dicoding:** ds506b6y1389
+Proyek akhir analisis data menggunakan **E-Commerce Public Dataset** dari Olist Store untuk memenuhi kriteria kelulusan kelas **"Belajar Analisis Data dengan Python"** di Dicoding Academy.
 
 ---
 
-## Deskripsi Proyek
-Proyek ini menganalisis data transaksi *Brazilian E-Commerce Public Dataset by Olist* untuk menggali *insight* strategis yang berorientasi pada tindakan (*actionable insights*). Fokus analisis meliputi:
-1. **Evaluasi Operasional Logistik & Kepuasan Pelanggan (Tahun 2017):** Mengukur dampak keterlambatan pengiriman (*actual delivery > estimated delivery*) terhadap penurunan rata-rata skor ulasan pelanggan (`review_score`) pada 10 kategori produk dengan volume pesanan tertinggi.
-2. **Perilaku Pembayaran & Nilai Transaksi Wilayah (Semester 1 2018):** Membandingkan *Gross Merchandise Value* (GMV), *Average Order Value* (AOV), dan rata-rata jumlah cicilan (`payment_installments`) antara metode pembayaran Kartu Kredit (`credit_card`) dan `boleto` di 5 negara bagian (`customer_state`) terbesar.
-3. **Analisis Lanjutan (Tanpa Algoritma Machine Learning):**
-   - **RFM Analysis (*Recency, Frequency, Monetary*):** Mengidentifikasi pelanggan terbaik berdasarkan waktu transaksi terakhir, frekuensi pemesanan, dan nilai kontribusi pendapatan.
-   - **Manual Grouping / Binning:** Mengelompokkan pelanggan ke dalam 5 segmen bisnis (*Champions*, *Loyal Customers*, *Potential Loyalists*, *At Risk*, dan *Lost*) berbasis aturan kuartil skor RFM.
-   - **Geospatial Analysis:** Memetakan kepadatan transaksi dan rata-rata hari keterlambatan pengiriman berdasarkan koordinat geografis (`geolocation_lat`, `geolocation_lng`) di wilayah Brasil.
+## 📌 Ringkasan Proyek
+Proyek ini melakukan analisis data menyeluruh mulai dari perumusan pertanyaan bisnis (menggunakan kaidah SMART), data wrangling (*gathering, assessing, cleaning*), *Exploratory Data Analysis* (EDA), visualisasi data, hingga pembuatan dashboard interaktif berbasis Streamlit.
+
+### 🎯 Pertanyaan Bisnis yang Dijawab
+1. **Operasional Logistik & Kepuasan Pelanggan:** Seberapa besar penurunan rata-rata skor ulasan pelanggan (`review_score`) pada pesanan yang mengalami keterlambatan pengiriman (*actual delivery > estimated delivery*) dibandingkan pengiriman tepat waktu pada 10 kategori produk dengan volume pesanan tertinggi sepanjang tahun 2017?
+2. **Perilaku Pembayaran & Nilai Transaksi Wilayah:** Bagaimana perbandingan total nilai transaksi (*Gross Merchandise Value*), rata-rata nilai pesanan (*Average Order Value*), dan rata-rata jumlah cicilan (`payment_installments`) antara metode pembayaran Kartu Kredit (`credit_card`) dan `boleto` di 5 negara bagian (`customer_state`) dengan transaksi tertinggi selama Semester 1 tahun 2018 (Januari – Juni 2018)?
+
+### ⭐ Analisis Lanjutan (Nilai Maksimal / Bintang 5)
+* **RFM Analysis (Recency, Frequency, Monetary):** Mengukur nilai pelanggan berdasarkan hari sejak transaksi terakhir (*Recency*), total pesanan unik (*Frequency*), dan total nilai belanja (*Monetary*).
+* **Customer Segmentation (Manual Grouping / Binning):** Segmentasi perilaku pelanggan (*Champions, Loyal Customers, Potential Loyalists, At Risk, Lost*) berbasis aturan kuartil skor RFM tanpa algoritma *Machine Learning*.
+* **Geospatial Analysis:** Pemetaan spasial kepadatan transaksi dan tingkat keterlambatan pengiriman di seluruh negara bagian Brasil untuk mengevaluasi efisiensi SLA logistik.
 
 ---
 
-## Struktur Direktori
+## 📁 Struktur Direktori Proyek
+
 ```text
 submission/
 ├── dashboard/
-│   ├── main_data.csv
-│   └── dashboard.py
-├── data/
+│   ├── dashboard.py           # Berkas aplikasi Streamlit
+│   └── main_data.csv          # Berkas dataset gabungan bersih (< 25 MB)
+├── data/                      # Dataset mentah (E-Commerce Public Dataset)
 │   ├── customers_dataset.csv
 │   ├── geolocation_dataset.csv
 │   ├── order_items_dataset.csv
@@ -34,43 +35,54 @@ submission/
 │   ├── product_category_name_translation.csv
 │   ├── products_dataset.csv
 │   └── sellers_dataset.csv
-├── notebook.ipynb
-├── README.md
-├── requirements.txt
-└── url.txt
+├── notebook.ipynb             # Jupyter Notebook proses analisis (sudah dieksekusi)
+├── README.md                  # Dokumentasi proyek & panduan instalasi
+├── requirements.txt           # Daftar library Python yang dibutuhkan
+└── url.txt                    # Tautan live dashboard di Streamlit Community Cloud
 ```
 
 ---
 
-## Instruksi Instalasi & Persiapan Lingkungan
+## 🚀 Panduan Menjalankan Dashboard Secara Lokal
 
-### 1. Menggunakan Anaconda / Miniconda (Opsional)
+### 1. Kloning Repository atau Buka Folder Proyek
 ```bash
-conda create --name ecommerce-analytics python=3.10 -y
-conda activate ecommerce-analytics
+git clone https://github.com/MIKELIZER/analisis_data_e-commerce.git
+cd analisis_data_e-commerce
 ```
 
-### 2. Menggunakan Virtual Environment (`venv`) atau Pip Langsung
+### 2. Membuat dan Mengaktifkan Virtual Environment (Opsional namun disarankan)
+Menggunakan **venv**:
 ```bash
-python -m venv .venv
-# Aktivasi di Windows:
-.venv\Scripts\activate
-# Aktivasi di macOS/Linux:
-source .venv/bin/activate
+# Windows
+python -m venv venv
+.\venv\Scripts\activate
+
+# macOS / Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+Atau menggunakan **Conda**:
+```bash
+conda create --name ecommerce-dashboard python=3.12
+conda activate ecommerce-dashboard
 ```
 
-### 3. Instalasi Dependencies
-Instal seluruh pustaka yang dibutuhkan melalui `requirements.txt`:
+### 3. Menginstal Dependensi
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Cara Menjalankan Dashboard Streamlit
-Jalankan perintah berikut dari direktori utama proyek (*root folder*):
+### 4. Menjalankan Dashboard Streamlit
 ```bash
 streamlit run dashboard/dashboard.py
 ```
-Aplikasi dashboard interaktif akan terbuka secara otomatis di peramban (*browser*) Anda pada alamat `http://localhost:8501`.
+Aplikasi akan secara otomatis terbuka di peramban web pada alamat `http://localhost:8501`.
 
+---
+
+## 🌐 Live Streamlit Cloud
+Dashboard ini dapat diakses secara daring pada tautan:
+- **Direct Live Link:** [https://aboplkllac2wrlz5uxuk4s.streamlit.app/](https://aboplkllac2wrlz5uxuk4s.streamlit.app/)
+- **Author:** Noval Berauh (ID Dicoding: `ds506b6y1389` | Email: `mikelizer123@gmail.com`)
+- **Tautan berkas:** [url.txt](url.txt)
